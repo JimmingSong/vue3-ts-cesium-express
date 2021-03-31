@@ -45,6 +45,7 @@
       line-height: @titleHeight;
       text-align: center;
       border-bottom: 1px solid #cccccc;
+      border-right: 1px solid #cccccc;
     }
   }
   .content-right {

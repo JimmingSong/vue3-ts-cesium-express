@@ -1,3 +1,3 @@
 export interface ChatState {
-    socket: WebSocket
+    socket: WebSocket,
 }
