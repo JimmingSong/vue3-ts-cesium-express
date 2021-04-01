@@ -8,7 +8,7 @@ let router = require('./routes');
 
 let app = express();
 expressWs(app);
-app.use(cors()).use(morgan()).use(json()).use(urlencoded());
+app.use(cors()).use(morgan('dev')).use(json()).use(urlencoded());
 app.use('/', router);
 wsRoutes.forEach(item => {
     app.ws(item.route, (ws, req) => {
