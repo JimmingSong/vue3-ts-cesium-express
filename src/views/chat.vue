@@ -1,22 +1,24 @@
 <template>
     <div>
-
+        <div>
+            <span>格式化</span>
+            <el-input v-model="sendMsg"></el-input>
+            <el-button @click="sendData">发送</el-button>
+        </div>
+        <div v-for="(item, dex) in getMsg" :key="dex">{{item}}</div>
     </div>
 </template>
 
 <script lang="ts">
-import {reactive, defineComponent} from 'vue';
-import {ChatState} from "@/views/typeobj";
-
+import {defineComponent} from 'vue';
+import {wsHandle} from "@/componsition";
+import {getSocketList} from '@/componsition/getRequestData'
 export default defineComponent({
     name: "chat",
     setup () {
-        const state: ChatState = reactive({
-            socket: new WebSocket('ws:localhost:3001/test-socket')
-        });
-
-        console.log(state.socket);
-        return {state}
+        let {sendData, getMsg, sendMsg} = wsHandle('ws://localhost:3001/test-socket');
+        let {wsRoute} = getSocketList();
+        return {getMsg, sendMsg, sendData, wsRoute}
     }
 })
 </script>
