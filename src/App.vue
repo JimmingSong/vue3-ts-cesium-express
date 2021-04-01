@@ -7,11 +7,15 @@
         router
       >
         <el-menu-item index="/">
-          cesium视图
-        </el-menu-item>
-        <el-menu-item index="chat">
           聊天室
         </el-menu-item>
+        <el-menu-item index="/cesium">
+          cesium视图
+        </el-menu-item>
+        <el-menu-item index="/socket">
+          socket调试工具
+        </el-menu-item>
+
       </el-menu>
     </div>
     <router-view class="content-right" />

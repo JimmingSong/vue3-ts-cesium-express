@@ -3,3 +3,8 @@ export interface ReturnObj {
     msg: string,
     value?: any
 }
+
+export interface MsgContent {
+    msg: string,
+    isSelf: boolean
+}
