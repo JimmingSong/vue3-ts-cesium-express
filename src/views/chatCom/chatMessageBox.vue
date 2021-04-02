@@ -1,5 +1,5 @@
 <template>
-    <div class="show-message-box">
+    <div class="show-message-box" ref="msgBox">
         <div v-for="(item, dex) in  msgList" :key="dex" class="message-show-com" :class="userInfo.id === item.userId ? 'self-msg' : 'target-msg'">
             <div class="message-show-user">
                 <el-avatar icon="el-icon-user-solid" shape="square"></el-avatar>
@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, PropType} from 'vue'
+import {defineComponent, PropType, watch, toRefs, ref} from 'vue'
 import {MsgContent, UserInfo} from "@/interfaceObj";
 export default defineComponent({
     name: "MessageBox",
@@ -21,6 +21,19 @@ export default defineComponent({
         userInfo: {
             type: Object as PropType<UserInfo>
         }
+    },
+    setup (props) {
+        const {msgList} = toRefs(props);
+        const msgBox = ref<HTMLElement>()
+        watch([msgList], (oldValue, newValue) => {
+            console.log('watch', newValue);
+            if (msgBox.value) {
+                msgBox.value.scrollTop = msgBox.value.scrollHeight;
+            }
+        }, {
+            deep: true
+        })
+        return {msgBox}
     }
 })
 </script>
