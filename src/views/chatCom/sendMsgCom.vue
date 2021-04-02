@@ -1,36 +1,48 @@
 <template>
     <div class="send-box">
-        <div contenteditable="true" class="send-message"></div>
-        <el-button type="success" @click="sendFun">发送</el-button>
+        <div contenteditable="true" class="send-message" ref="msgCom" @keydown.enter.prevent="sendFun"></div>
+        <div class="send-btn">
+            <el-button type="success" @click="sendFun">发送</el-button>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
-    import {defineComponent, toRefs, PropType} from 'vue'
+    import {defineComponent, ref} from 'vue'
     export default defineComponent({
         name: "sendMsgCom",
         props: {
-            socket: {
-                type: Object as PropType<WebSocket>,
-            }
+            socket: WebSocket
         },
         setup (props) {
-            const {socket} = toRefs(props);
+            const msgCom = ref<HTMLElement>();
             const sendFun = () => {
+                const socket = props.socket;
                 if (socket) {
-                    // socket.send('msg', true)
+                    let val = msgCom.value?.textContent ?? 'msg';
+                    socket.send(val);
+                    if (msgCom.value) {
+                        msgCom.value.innerText = ''
+                    }
                 }
             }
-            return {sendFun}
+            return {sendFun, msgCom}
         }
     })
 </script>
 
 <style scoped lang="less">
 .send-box {
+    height: 252px;
     .send-message {
-        min-height: 250px;
+        height: 200px;
         border: 1px solid #ccc;
+    }
+    .send-btn {
+        display: flex;
+        justify-content: flex-end;
+        margin: 5px 10px;
+        box-sizing: border-box;
     }
 }
 </style>

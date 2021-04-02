@@ -10,7 +10,7 @@ class SocketManager {
 
     sendMsgForEveryOne (msg) {
         this.socketList.forEach(item => {
-            item.send({msg})
+            item.send(JSON.stringify({msg}))
         })
     }
     eventBind (ws) {

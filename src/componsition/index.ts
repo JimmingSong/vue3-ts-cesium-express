@@ -10,7 +10,7 @@ function messageBind(ws: WebSocket, state: WsState) {
         console.log('连接成功');
     }
     ws.onmessage = (wsMsg: { data: any; }) => {
-        state.getMsg.push(wsMsg.data);
+        state.getMsg.push(JSON.parse(wsMsg.data));
     }
     ws.onclose = () => {
         state.socket = null;
