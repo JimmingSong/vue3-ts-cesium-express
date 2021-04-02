@@ -8,3 +8,7 @@ export interface MsgContent {
     msg: string,
     isSelf: boolean
 }
+
+export interface UserInfo {
+    id: number
+}

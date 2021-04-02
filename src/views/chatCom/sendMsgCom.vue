@@ -13,7 +13,8 @@
     export default defineComponent({
         name: "sendMsgCom",
         props: {
-            socket: WebSocket
+            socket: WebSocket,
+            userInfo: Object
         },
         setup (props) {
             const msgCom = ref<HTMLElement>();
@@ -29,7 +30,11 @@
                         }, 500)
                         return;
                     }
-                    socket.send(val);
+                    console.log(props);
+                    const user = props.userInfo;
+                    const sendData = {userInfo: user, msg: val};
+                    console.log(sendData);
+                    socket.send(JSON.stringify(sendData));
                     if (msgCom.value) {
                         msgCom.value.innerText = ''
                     }
@@ -45,8 +50,11 @@
     height: 252px;
     .send-message {
         height: 200px;
+        width: 100%;
         border: 1px solid #ccc;
         outline: none;
+        word-break: break-word;
+        box-sizing: border-box;
     }
     .send-btn {
         display: flex;

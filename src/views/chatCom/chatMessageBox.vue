@@ -1,22 +1,25 @@
 <template>
     <div class="show-message-box">
-        <div v-for="(item, dex) in  msgList" :key="dex" class="message-show-com">
+        <div v-for="(item, dex) in  msgList" :key="dex" class="message-show-com" :class="userInfo.id === item.userId ? 'self-msg' : 'target-msg'">
             <div class="message-show-user">
                 <el-avatar icon="el-icon-user-solid" shape="square"></el-avatar>
             </div>
-            <div class="msg-text">{{item.msg}}</div>
+            <div :class="userInfo.id === item.userId ? 'self-text' : 'target-text'">{{item.msg}}</div>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import {defineComponent, PropType} from 'vue'
-import {MsgContent} from "@/interfaceObj";
+import {MsgContent, UserInfo} from "@/interfaceObj";
 export default defineComponent({
     name: "MessageBox",
     props: {
         msgList: {
             type: Array as PropType<Array<MsgContent>>
+        },
+        userInfo: {
+            type: Object as PropType<UserInfo>
         }
     }
 })
@@ -30,20 +33,51 @@ export default defineComponent({
     height: calc(100% - 252px);
     overflow-y: auto;
 }
-    .message-show-com {
+    .target-msg {
         display: flex;
         margin: 6px 0;
         .message-show-user {
             display: flex;
             flex-direction: column;
         }
-        .msg-text {
-            margin-left: 10px;
+        .target-text {
+            position: relative;
+            margin-left: 16px;
             background-color: aquamarine;
             padding: 5px 10px;
             border-radius: 5px;
-            max-width: 500px;
+            max-width: 600px;
             word-break: break-word;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 3px;
+                left: -18px;
+                border: 8px solid transparent;
+                border-right: 10px solid aquamarine;
+            }
+        }
+    }
+    .self-msg {
+        display: flex;
+        flex-direction: row-reverse;
+        margin: 6px 0;
+        .self-text {
+            position: relative;
+            margin-right: 16px;
+            background-color: aquamarine;
+            padding: 5px 10px;
+            border-radius: 5px;
+            max-width: 600px;
+            word-break: break-word;
+            &::before {
+                content: '';
+                position: absolute;
+                top: 3px;
+                right: -18px;
+                border: 8px solid transparent;
+                border-left: 10px solid aquamarine;
+            }
         }
     }
 </style>

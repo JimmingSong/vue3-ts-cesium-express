@@ -1,4 +1,5 @@
-import {reactive, ref, toRefs} from 'vue';
+import {reactive, toRefs} from 'vue';
+// import {UserInfo} from "@/interfaceObj";
 interface WsState {
     socket: WebSocket | null,
     getMsg: string[],
@@ -30,4 +31,13 @@ export function wsHandle(url: string) {
         state.socket?.send(state.sendMsg);
     }
     return {...toRefs(state), sendData}
+}
+
+const count:number = new Date().getTime();
+
+export function randomCreateUser() {
+    const user = reactive({
+        id: count
+    });
+    return {user}
 }

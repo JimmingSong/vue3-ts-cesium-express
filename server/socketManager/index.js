@@ -9,8 +9,10 @@ class SocketManager {
     }
 
     sendMsgForEveryOne (msg) {
+        let user = msg.userInfo;
+        let message = msg.msg;
         this.socketList.forEach(item => {
-            item.send(JSON.stringify({msg}))
+            item.send(JSON.stringify({userId: user.id, msg: message}))
         })
     }
     eventBind (ws) {
@@ -19,7 +21,7 @@ class SocketManager {
     }
     messageEvent (ws) {
         ws.on('message', msg => {
-            this.sendMsgForEveryOne(msg);
+            this.sendMsgForEveryOne(JSON.parse(msg));
         })
     }
     openEvent (ws) {
