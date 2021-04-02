@@ -2,10 +2,9 @@
     <div class="show-message-box">
         <div v-for="(item, dex) in  msgList" :key="dex" class="message-show-com">
             <div class="message-show-user">
-                <el-avatar icon="el-icon-user-solid"></el-avatar>
-                <span>名称</span>
+                <el-avatar icon="el-icon-user-solid" shape="square"></el-avatar>
             </div>
-            <div>{{item.msg}}</div>
+            <div class="msg-text">{{item.msg}}</div>
         </div>
     </div>
 </template>
@@ -33,9 +32,18 @@ export default defineComponent({
 }
     .message-show-com {
         display: flex;
+        margin: 6px 0;
         .message-show-user {
             display: flex;
             flex-direction: column;
+        }
+        .msg-text {
+            margin-left: 10px;
+            background-color: aquamarine;
+            padding: 5px 10px;
+            border-radius: 5px;
+            max-width: 500px;
+            word-break: break-word;
         }
     }
 </style>
