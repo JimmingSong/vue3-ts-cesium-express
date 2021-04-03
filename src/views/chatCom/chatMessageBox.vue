@@ -25,10 +25,9 @@ export default defineComponent({
     setup (props) {
         const {msgList} = toRefs(props);
         const msgBox = ref<HTMLElement>()
-        watch([msgList], (oldValue, newValue) => {
-            console.log('watch', newValue);
+        watch([msgList], () => {
             if (msgBox.value) {
-                msgBox.value.scrollTop = msgBox.value.scrollHeight;
+                msgBox.value.scrollTop = msgBox.value.scrollHeight + 50;
             }
         }, {
             deep: true

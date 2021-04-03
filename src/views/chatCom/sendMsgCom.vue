@@ -30,10 +30,8 @@
                         }, 500)
                         return;
                     }
-                    console.log(props);
                     const user = props.userInfo;
                     const sendData = {userInfo: user, msg: val};
-                    console.log(sendData);
                     socket.send(JSON.stringify(sendData));
                     if (msgCom.value) {
                         msgCom.value.innerText = ''
@@ -55,6 +53,7 @@
         outline: none;
         word-break: break-word;
         box-sizing: border-box;
+        padding: 5px;
     }
     .send-btn {
         display: flex;
