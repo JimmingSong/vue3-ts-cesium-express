@@ -15,7 +15,7 @@ import {getSocketList} from '@/componsition/getRequestData'
 export default defineComponent({
     name: "chat",
     setup () {
-        let {sendData, getMsg, sendMsg, socket} = wsHandle('ws://172.16.1.15:3001/test-socket');
+        let {sendData, getMsg, sendMsg, socket} = wsHandle(`ws://192.168.3.203:3001/test-socket`);
         let {user} = randomCreateUser();
         let {wsRoute} = getSocketList();
         return {getMsg, sendMsg, sendData, wsRoute, socket, user}
