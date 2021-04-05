@@ -7,7 +7,7 @@ class Interceptors {
     requestInterceptor () {
         axios.interceptors.request.use(config => {
             config.url = `http://localhost:3001${config.url}`;
-            return config
+            return config;
         }, this.errorHandle)
     }
     errorHandle (err: any): ReturnObj {
