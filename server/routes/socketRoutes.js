@@ -7,6 +7,13 @@ let wsRoutes = [
         handle (ws) {
             socketHand.add(ws);
         }
+    },
+    {
+        route: '/satellitePos',
+        name: '卫星实时位置',
+        handle(ws) {
+
+        }
     }
 ]
 function getWsRouteList () {

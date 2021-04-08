@@ -10,14 +10,21 @@ const user_con = mysql.createPool({
 
 class HandleUser {
     constructor() {
-        user_con.connect();
+        // user_con.connect();
     }
     insert (data) {
         // let {name, password, email} = data;
-        user_con.query("INSERT INTO user_list SET ?", data, (error, result, fields) => {
-            if (error) throw error;
-            console.log(result);
-            console.log(fields);
+        return new Promise(async (resolve, reject) => {
+            let res = await this.find(data.name, data.password);
+            if (res.result && res.result.length) {
+                return {success: false, msg: '用户已存在'}
+            }
+            user_con.query("INSERT INTO user_list SET ?", data, (error, result, fields) => {
+                if (error) {
+                    reject(error)
+                }
+                resolve({success: true, result, fields});
+            })
         })
     }
     update (id, data) {
@@ -29,11 +36,15 @@ class HandleUser {
     }
     remote () {}
     find (name, password) {
-        user_con.query('SELECT id FROM user_list WHERE name = ? AND password = ?', [name, password], function (error, result, fields) {
-            if (error) throw error;
-            console.log(result);
-            console.log(fields);
+        return new Promise((resolve, reject) => {
+            user_con.query('SELECT id FROM user_list WHERE name = ? AND password = ?', [name, password], function (error, result, fields) {
+                if (error) {
+                    reject(error);
+                }
+                resolve({result, fields});
+            })
         })
+
     }
 }
 

@@ -10,5 +10,7 @@ export interface MsgContent {
 }
 
 export interface UserInfo {
-    id: number
+    id: number,
+    name: string,
+    email: string
 }
